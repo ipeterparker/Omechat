@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Omechat - Talk to Strangers</title>
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Omechat is the ultimate free platform to talk to strangers via text, voice, and high-definition video chat instantly. Safe, secure, and moderated. Connect globally with random people instantly.">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- HOME SCREEN -->
+        <div id="home-page">
+            <div class="header-top">
+                <div class="menu-container">
+                    <button class="three-dots-btn" onclick="toggleDropdownMenu(event)">⋮</button>
+                    <div class="dropdown-menu" id="topDropdownMenu">
+                        <div class="dropdown-item" onclick="openAuthModal()">🔑 Sign In</div>
+                        <div class="dropdown-item" onclick="toggleThemeMode()" id="themeMenuText">🌙 Dark Mode</div>
+                        <a href="about.html" class="dropdown-item" style="text-decoration: none;">ℹ About</a>
+                        <div class="dropdown-item" onclick="showPrivacyPolicy()">🛡️ Privacy Policy</div>
+                    </div>
+                </div>
+
+                <div class="header-left-group">
+                    <div class="logo-badge"><span class="deer-icon">🦌</span> Omechat</div>
+                    <div class="online-count" id="liveActiveCount">🟢 4,910 Active</div>
+                </div>
+            </div>
+
+            <div class="ad-banner-space" id="ownerAdContainer">
+                <div class="ad-placeholder-text">📢 Ad Banner Space</div>
+            </div>
+
+            <div>
+                <h1>Omechat: <span>The Ultimate</span> Connection Space</h1>
+                <p class="desc">Talk to strangers in your browser — text, video or voice.</p>
+
+                <div class="options-grid">
+                    <div class="option-card active" onclick="selectMode('Text')"><div class="icon">💬</div><span>Text</span></div>
+                    <div class="option-card" onclick="selectMode('Video')"><div class="icon">📹</div><span>Video</span></div>
+                    <div class="option-card" onclick="selectMode('Voice')"><div class="new-badge">New</div><div class="icon">🎙️</div><span>Voice</span></div>
+                </div>
+
+                <div>
+                    <button class="start-action-btn" onclick="openMatchScreen()">Start Matching ✨</button>
+                </div>
+                
+                <div class="vibe-clean-tag">🔒 Encrypted & Moderated — Keep the vibe clean.</div>
+
+                <!-- Aesthetic Long SEO Content Section -->
+                <div class="seo-about-box">
+                    <h2>Welcome to Omechat — The Next-Generation Anonymous Social Platform</h2>
+                    <p>Omechat revolutionizes how people connect across the globe. Whether you want to make new friends, practice foreign languages, share thoughts anonymously, or simply pass the time talking to random strangers, Omechat provides a seamless, secure, and lightning-fast environment.</p>
+                    <p>Our platform supports multiple communication mediums including instant text messaging, high-definition (HD) video chats, and crystal-clear voice conversations. Built with cutting-edge web technologies, Omechat ensures low latency, robust privacy encryption, and intelligent moderation tools to keep your conversations safe and enjoyable.</p>
+                    <p>Explore random matching with filters like Same Country connectivity, switch themes effortlessly, and experience a clean modern interface designed for ultimate user comfort. Join millions of active users worldwide today and start your journey of spontaneous connections!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- CHAT SCREEN -->
+        <div id="chat-page" class="hidden" style="display: flex; flex-direction: column; width: 100%; flex: 1; min-height: 82vh;">
+            <div class="chat-top-header">
+                <!-- Same Country Toggle on Left -->
+                <div class="same-country-container">
+                    <span style="font-size: 11.5px; font-weight: 600; color: var(--text-color);">🇮🇳 Same Country</span>
+                    <label class="switch">
+                        <input type="checkbox" id="sameCountryToggle">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+
+                <!-- Center 3D Deer Logo inside Black Circle -->
+                <div class="center-deer-circle">
+                    <span class="deer-icon">🦌</span>
+                </div>
+
+                <!-- Active Count on Right -->
+                <div class="online-count" id="liveActiveCountChat">🟢 4,910 Active</div>
+            </div>
+
+            <!-- CHAT DISPLAY CONTAINER -->
+            <div style="flex: 1; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; justify-content: flex-end; overflow-y: auto; position: relative; margin-bottom: 10px;" id="textChatScreen" class="omechat-watermark-bg">
+                
+                <div style="font-size: 14px; color: var(--subtext-color); margin: auto 0; text-align: center; z-index: 2;" id="rulesBoxContent">
+                    <div style="color: #ef4444; font-weight: 700; font-size: 15px; margin-bottom: 6px;">You must be 18+</div>
+                    No explicit content or harassment allowed. Click Start below!
+                </div>
+
+                <div style="display: none; flex-direction: column; align-items: center; justify-content: center; margin: auto 0; gap: 10px; z-index: 2;" id="loadingAnimationBox">
+                    <div style="font-size: 48px; animation: deerBounce 1s infinite;">🦌</div>
+                    <div style="color: var(--text-color); font-size: 14.5px; font-weight: 600;" id="loadingTextStatus">Searching for a stranger...</div>
+                    
+                </div>
+
+                <div style="display: none; flex-direction: column; gap: 4px; width: 100%; justify-content: flex-end; z-index: 2;" id="liveMessagesArea"></div>
+
+                <!-- VIDEO CHAT UI -->
+                <div style="display: none; flex-direction: column; width: 100%; height: 100%; gap: 6px; justify-content: flex-start; padding-top: 0px; z-index: 2;" id="videoChatUI">
+                    <div class="video-grid-full">
+                        <div class="video-box-full animated-video-box">
+                            <div class="video-label"><span style="color: #ef4444; font-weight: bold;">Stranger</span> (India) 🇮🇳 📹</div>
+                            <div class="avatar-placeholder video-stranger-anim">👤</div>
+                        </div>
+                        <div class="video-box-full animated-video-box">
+                            <div class="video-label">You (HD) 📹</div>
+                            <div class="avatar-placeholder self video-self-anim">😊</div>
+                        </div>
+                    </div>
+                    <!-- iPhone Style Control Bar for Video with Speaker Option -->
+                    <div class="iphone-control-bar">
+                        <button class="iphone-icon-btn" onclick="toggleMuteVideo()" id="videoMuteBtn">🎙️ Mute</button>
+                        <button class="iphone-icon-btn" onclick="toggleCameraVideo()" id="videoCamBtn">📹 Cam Off</button>
+                        <button class="iphone-icon-btn" onclick="toggleSpeakerVideo()" id="videoSpeakerBtn">🔊 Speaker</button>
+                    </div>
+                </div>
+
+                <!-- VOICE CHAT UI -->
+                <div style="display: none; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%; gap: 15px; z-index: 2;" id="voiceChatUI">
+                    <div class="voice-pulse-circle">🎙️</div>
+                    <div style="font-weight: 700; font-size: 15.5px; color: var(--text-color);" class="voice-connected-text">Voice Connected with <span style="color: #ef4444; font-weight: bold;">Stranger</span> (India) 🇮🇳</div>
+                    <div class="voice-waves">
+                        <span></span><span></span><span></span><span></span><span></span>
+                    </div>
+                    <!-- iPhone Style Control Bar for Voice with Speaker Option -->
+                    <div class="iphone-control-bar" style="margin-top: 15px;">
+                        <button class="iphone-icon-btn" onclick="toggleMuteVoice()" id="voiceMuteBtn">🎙️ Mute</button>
+                        <button class="iphone-icon-btn" onclick="toggleSpeakerVoice()" id="voiceSpeakerBtn">🔊 Speaker</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- CONTROLS -->
+            <div style="display: flex; align-items: center; gap: 8px; width: 100%; margin-bottom: 5px;" id="textBottomControls">
+                <button style="background-color: #ff8800; color: white; border: none; padding: 12px 16px; border-radius: 12px; font-weight: bold; cursor: pointer;" id="mainActionBtn" onclick="onStartOrSkip()">Start</button>
+                
+                <!-- Dynamic Input Container -->
+                <div id="dynamicInputArea" style="flex: 1; display: flex; align-items: center;">
+                    <input type="text" style="width: 100%; background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 12px; color: var(--text-color); outline: none;" id="messageInput" placeholder="Type a message..." onkeypress="checkEnter(event)">
+                </div>
+
+                <button style="background: #2563eb; border: none; color: white; padding: 12px 16px; border-radius: 12px; font-weight: bold; cursor: pointer;" id="sendBtnElem" onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SIGN IN MODAL -->
+    <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: none; align-items: center; justify-content: center; z-index: 2000;" id="authModalOverlay">
+        <div style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 18px; width: 90%; max-width: 380px; padding: 26px; text-align: center; position: relative;" id="authModalBoxContent">
+            <button style="position: absolute; top: 14px; right: 16px; background: none; border: none; color: var(--subtext-color); font-size: 18px; cursor: pointer;" onclick="closeAuthModal()">✕</button>
+            <div style="font-size: 20px; font-weight: 800; color: var(--text-color); margin-bottom: 8px;">Sign In to Omechat</div>
+            <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 15px;" id="authButtonsContainer">
+                <button style="background: var(--header-bg); border: 1px solid #4285F4; color: var(--text-color); padding: 13px; border-radius: 12px; font-weight: 600; cursor: pointer;" onclick="renderGooglePicker()">🌐 Continue with Google</button>
+                <button style="background: var(--header-bg); border: 1px solid #1DA1F2; color: var(--text-color); padding: 13px; border-radius: 12px; font-weight: 600; cursor: pointer;" onclick="renderTwitterForm()">🅧 Continue with Twitter</button>
+                <button style="background: var(--header-bg); border: 1px solid var(--border-color); color: var(--text-color); padding: 13px; border-radius: 12px; font-weight: 600; cursor: pointer;" onclick="renderPhoneForm()">📱 Continue with Phone</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
